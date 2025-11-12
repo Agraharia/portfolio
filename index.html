@@ -183,6 +183,43 @@
       padding: 1rem;
       margin-top: 2rem;
     }
+
+    #contact-form {
+    max-width: 500px;
+    margin: 2rem auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  #contact-form input,
+  #contact-form textarea {
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+  }
+
+  #contact-form button {
+    background: #0078d7;
+    color: white;
+    border: none;
+    padding: 0.8rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  #contact-form button:hover {
+    background: #005fa3;
+  }
+
+  #response-message {
+    text-align: center;
+    margin-top: 1rem;
+    font-weight: 500;
+  }
   </style>
 </head>
 
@@ -261,17 +298,52 @@
     </div>
   </section>
 
-  <section id="contact" class="contact">
+  <!-- <section id="contact" class="contact">
     <h2>Contact</h2>
     <p>Let's connect and discuss your next project!</p>
     <a href="mailto:your.email@gmail.com">📧 Email</a>
     <a href="https://linkedin.com/in/akash" target="_blank">💼 LinkedIn</a>
     <a href="https://github.com/akash" target="_blank">💻 GitHub</a>
-  </section>
+  </section> -->
 
   <footer>
     <p>© 2025 Akash | Full Stack .NET Developer</p>
   </footer>
+  <section id="contact" class="contact">
+  <h2>Contact Me</h2>
+  <p>Let’s connect and discuss your next project!</p>
+
+  <form id="contact-form">
+    <input type="text" id="name" name="from_name" placeholder="Your Name" required>
+    <input type="email" id="email" name="from_email" placeholder="Your Email" required>
+    <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
+    <button type="submit">Send Message</button>
+  </form>
+
+  <p id="response-message"></p>
+</section>
+
+<!-- EmailJS Script -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+  (function() {
+    emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your actual public key
+  })();
+
+  document.getElementById("contact-form").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    emailjs.sendForm("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", this)
+      .then(function() {
+        document.getElementById("response-message").innerText = "✅ Message sent successfully!";
+        document.getElementById("contact-form").reset();
+      }, function(error) {
+        document.getElementById("response-message").innerText = "❌ Failed to send message. Try again.";
+        console.log(error);
+      });
+  });
+</script>
+
 
 </body>
 </html>
